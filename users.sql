@@ -1,18 +1,48 @@
--- Cambiar a la base de datos administrativa
-USE mysql;
+USE GESTIONCLIENTE;
 
--- Crear 3 usuarios
-CREATE USER 'usuario1'@'localhost' IDENTIFIED BY 'Password123!';
-CREATE USER 'usuario2'@'localhost' IDENTIFIED BY 'Password123!';
-CREATE USER 'usuario3'@'localhost' IDENTIFIED BY 'Password123!';
+/*----------------------------------------CREAR USUARIOS----------------------------------------*/
 
--- Dar permisos (por ejemplo, todos los permisos sobre la base GESTIONCLIENTE)
-GRANT ALL PRIVILEGES ON GESTIONCLIENTE.* TO 'usuario1'@'localhost';
-GRANT ALL PRIVILEGES ON GESTIONCLIENTE.* TO 'usuario2'@'localhost';
-GRANT ALL PRIVILEGES ON GESTIONCLIENTE.* TO 'usuario3'@'localhost';
+CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin';
+CREATE USER 'climanager'@'localhost' IDENTIFIED BY 'climanager123!';
+CREATE USER 'prdmanager'@'localhost' IDENTIFIED BY 'prdmanager123!';
+CREATE USER 'marketing'@'localhost' IDENTIFIED BY 'marketing123!!';
+CREATE USER 'fsm'@'localhost' IDENTIFIED BY 'fsm123!!';
 
--- Aplicar cambios
-FLUSH PRIVILEGES;
+/*-----------------------------------------PERMISOS---------------------------------------------*/
+GRANT ALL PRIVILEGES ON GESTIONCLIENTE.* TO 'admin'@'localhost';
 
--- Verificar usuarios creados
-SELECT user, host FROM mysql.user WHERE user IN ('usuario1','usuario2','usuario3');
+GRANT SELECT ON GESTIONCLIENTE.ESTADO TO 'climanager'@'localhost';
+GRANT SELECT ON GESTIONCLIENTE.ORDENTIPO TO 'climanager'@'localhost';
+GRANT SELECT, INSERT, UPDATE ON GESTIONCLIENTE.CLIENTE TO 'climanager'@'localhost';
+GRANT SELECT, INSERT, UPDATE ON GESTIONCLIENTE.CONTRATO TO 'climanager'@'localhost';
+GRANT SELECT, INSERT, UPDATE, DELETE ON GESTIONCLIENTE.CONTRATOPRM TO 'climanager'@'localhost';
+GRANT SELECT, INSERT, UPDATE ON GESTIONCLIENTE.ORDENSERVICIO TO 'climanager'@'localhost';
+GRANT SELECT, INSERT, UPDATE ON GESTIONCLIENTE.FACTURA TO 'climanager'@'localhost';
+GRANT SELECT, INSERT, UPDATE ON GESTIONCLIENTE.FACTURALINEA TO 'climanager'@'localhost';
+GRANT SELECT ON GESTIONCLIENTE.VW_FACTURAs_DETALLES TO 'climanager'@'localhost';
+GRANT SELECT ON GESTIONCLIENTE.VW_SERVICIOS_GENERADOS TO 'climanager'@'localhost';
+
+GRANT SELECT ON GESTIONCLIENTE.ESTADO TO 'prdmanager'@'localhost';
+GRANT SELECT ON GESTIONCLIENTE.ORDENTIPO TO 'prdmanager'@'localhost';
+GRANT SELECT, INSERT ON GESTIONCLIENTE.PRODUCTOTPO TO 'prdmanager'@'localhost';
+GRANT SELECT, INSERT, UPDATE ON GESTIONCLIENTE.PRODUCTO TO 'prdmanager'@'localhost';
+GRANT SELECT, INSERT, UPDATE ON GESTIONCLIENTE.POLITICA TO 'prdmanager'@'localhost';
+GRANT SELECT, INSERT, UPDATE ON GESTIONCLIENTE.PRODUCTOPOL TO 'prdmanager'@'localhost';
+GRANT SELECT, INSERT, UPDATE ON GESTIONCLIENTE.PROMOCION TO 'prdmanager'@'localhost';
+GRANT SELECT, INSERT, UPDATE ON GESTIONCLIENTE.PRODUCTOPRM TO 'prdmanager'@'localhost';
+GRANT SELECT ON GESTIONCLIENTE.VW_PRD_CONFIG_ACTIVOS TO 'prdmanager'@'localhost';
+
+GRANT SELECT ON GESTIONCLIENTE.VW_FACTURAS_DETALLES TO 'marketing'@'localhost';
+GRANT SELECT ON GESTIONCLIENTE.VW_MOST_PRDTPO TO 'marketing'@'localhost';
+GRANT SELECT ON GESTIONCLIENTE.VW_PRODUCTOS_CONTRATADOS TO 'marketing'@'localhost';
+GRANT SELECT ON GESTIONCLIENTE.VW_PRODUCTOSTPO_CONTRATADOS TO 'marketing'@'localhost';
+GRANT SELECT ON GESTIONCLIENTE.VW_SERVICIOS_GENERADOS TO 'marketing'@'localhost';
+
+GRANT SELECT ON GESTIONCLIENTE.ESTADO TO 'fsm'@'localhost';
+GRANT SELECT ON GESTIONCLIENTE.CLIENTE TO 'fsm'@'localhost';
+GRANT SELECT ON GESTIONCLIENTE.CONTRATO TO 'fsm'@'localhost';
+GRANT SELECT ON GESTIONCLIENTE.ORDENTIPO TO 'fsm'@'localhost';
+GRANT SELECT, INSERT, UPDATE ON GESTIONCLIENTE.ORDENSERVICIO TO 'fsm'@'localhost';
+GRANT SELECT ON GESTIONCLIENTE.PRODUCTOTPO TO 'fsm'@'localhost';
+GRANT SELECT ON GESTIONCLIENTE.PRODUCTO TO 'fsm'@'localhost';
+GRANT SELECT ON GESTIONCLIENTE.VW_SERVICIOS_GENERADOS TO 'fsm'@'localhost';
